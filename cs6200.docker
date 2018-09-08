@@ -1,0 +1,52 @@
+FROM ubuntu:16.04
+MAINTAINER george.trimis@gmail.com
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    pkg-config \
+    zip \
+    unzip \
+    software-properties-common \
+    python-pip \
+    python-dev \
+    libgmp-dev \
+    gcc-multilib \
+    valgrind \
+    openmpi-bin \
+    openmpi-doc \
+    libopenmpi-dev \
+    portmap \
+    rpcbind \
+    libcurl4-openssl-dev \
+    bzip2 \
+    imagemagick \
+    libmagickcore-dev \
+    libssl-dev \
+    libffi6 \
+    libffi-dev \
+    llvm \
+    libxext6 \
+    libxrender1 \
+    libxtst6 \
+    libxi6
+
+RUN pip install -U pip
+RUN pip install \
+    requests \
+    future \
+    cryptography \
+    pyopenssl \
+    ndg-httpsclient \
+    pyasn1 \
+    nelson
+
+WORKDIR /opt
+
+ADD https://download.jetbrains.com/cpp/CLion-2018.2.1.tar.gz clion.tar.gz
+RUN tar xvf clion.tar.gz && rm clion.tar.gz
+CMD /opt/clion-2018.2.1/bin/clion.sh
+
+# docker build -t cs6200 .
+# docker run -v "$(pwd):/data" --net=host --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" cs6200
